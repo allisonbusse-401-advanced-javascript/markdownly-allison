@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import Preview from '../components/markdown/Preview';
 import Editor from '../components/markdown/Editor';
 import styles from './Document.css';
-import Tabs from '../components/markdown/Tabs';
 
 import { sendMarkdownUpdate } from '../actions/documentActions';
 import { getMarkdown } from '../selectors/documentSelectors';
@@ -13,7 +12,6 @@ import { getMarkdown } from '../selectors/documentSelectors';
 const Document = ({ markdown, updateMarkdown }) => {
   return (
     <>
-      <Tabs arrayTabs={['thing', 'thing']} />
       <div className={styles.Document}>
         <Editor markdown={markdown} updateMarkdown={updateMarkdown} />
         <Preview markdown={markdown} />
