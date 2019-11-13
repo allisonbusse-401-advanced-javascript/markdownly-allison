@@ -1,0 +1,15 @@
+.Tabs {
+  margin: 0;
+  padding: 0;
+  button {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 1.5em;
+    line-height: 1.5;
+    background: #272822;
+    color: #F8F8F2;
+    letter-spacing: 0.3px;
+    word-spacing: 1px;
+    border-top-right-radius: .2em;
+    border-top-left-radius: .2em;
+  }
+}
