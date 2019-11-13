@@ -17,7 +17,7 @@ export default class Document extends PureComponent {
     const { markdown } = this.state;
     return (
       <>
-        <Tabs arrayTabs={['1', '2']}/>
+        <Tabs arrayTabs={['thing', 'thing']}/>
         <div className={styles.Document}>
           <Editor markdown={markdown} updateMarkdown={this.updateMarkdown} />
           <Preview markdown={markdown} />

@@ -12,8 +12,13 @@
     word-spacing: 1px;
     border-top-right-radius: .2em;
     border-top-left-radius: .2em;
+    padding: .2em;
+    margin-right: .1em;
     p {
       display: inline;
+    }
+    button {
+      font-size: .5em;
     }
   }
 }

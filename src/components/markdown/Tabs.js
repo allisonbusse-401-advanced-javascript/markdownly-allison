@@ -6,7 +6,7 @@ const Tabs = ({ arrayTabs, handleTab, handleAdd, handleDelete }) => {
   const mappedTabs = arrayTabs.map((tab, index)=> {
     return <div key={index} onClick={() => handleTab(tab)}>
       <p>{tab}</p>
-      <button onClick={() => handleDelete(tab)}>X</button>
+      <sup><button onClick={() => handleDelete(tab)}>X</button></sup> 
     </div>;
   });
 
