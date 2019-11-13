@@ -46,25 +46,3 @@ export default DocumentContainer;
 
 
 
-// export default class Document extends PureComponent {
-//   state = {
-//     markdown: '# Hi there'
-//   };
-
-//   updateMarkdown = ({ target }) => {
-//     this.setState({ markdown: target.value });
-//   };
-
-//   render() {
-//     const { markdown } = this.state;
-//     return (
-//       <>
-//         <Tabs arrayTabs={['thing', 'thing']}/>
-//         <div className={styles.Document}>
-//           <Editor markdown={markdown} updateMarkdown={this.updateMarkdown} />
-//           <Preview markdown={markdown} />
-//         </div>
-//       </>
-//     );
-//   }
-// }

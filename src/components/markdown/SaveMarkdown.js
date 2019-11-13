@@ -11,9 +11,9 @@ const SaveMarkdown = ({ handleAdd, handleChange, tabName }) => {
 };
 
 SaveMarkdown.propTypes = {
-  handleAdd: PropTypes.func.isRequired,
-  handleChange: PropTypes.func.isRequired,
-  tabName: PropTypes.string.isRequired
+  handleAdd: PropTypes.func,
+  handleChange: PropTypes.func,
+  tabName: PropTypes.string
 };
 
 export default SaveMarkdown;
