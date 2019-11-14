@@ -4,11 +4,11 @@ import { connect } from 'react-redux';
 
 import SaveMarkdown from '../components/markdown/SaveMarkdown';
 
-import { addTab, sendTabName } from '../actions/saveMarkdownActions';
-import { updateCurrentTab } from '../actions/tabActions';
+import { sendTabName, updateCurrentIndex } from '../actions/saveMarkdownActions';
 import { getTabName, getHistoryArray } from '../selectors/saveMarkdownSelectors';
 
 import { newHistory } from '../actions/saveMarkdownActions';
+import { switchBody } from '../actions/documentActions';
 
 const SaveMarkdownContainer = ({ handleAdd, handleChange, tabName, historyArray }) => {
   return (
@@ -48,9 +48,9 @@ const mapDispatchToProps = dispatch => ({
         }
       }
     }
+    dispatch(updateCurrentIndex(historyArray.length));
+    dispatch(switchBody('', historyArray.length));
     dispatch(newHistory(newName, ''));
-    dispatch(addTab(newName));
-    dispatch(updateCurrentTab(newName));
   }
 });
 

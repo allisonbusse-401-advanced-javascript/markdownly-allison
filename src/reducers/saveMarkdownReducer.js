@@ -1,9 +1,10 @@
-import { TAB_NAME_CHANGE, UPDATE_HISTORY, NEW_HISTORY } from '../actions/saveMarkdownActions';
-
+import { TAB_NAME_CHANGE, UPDATE_HISTORY, NEW_HISTORY, UPDATE_CURRENT_INDEX } from '../actions/saveMarkdownActions';
+import { SWITCH_BODY } from '../actions/documentActions';
 
 const initialState = {
   tabName: '',
-  history: []
+  history: [],
+  currentIndex: 0,
 };
 
 function saveMarkdownReducer(state = initialState, action) {
@@ -13,12 +14,22 @@ function saveMarkdownReducer(state = initialState, action) {
     case NEW_HISTORY:
       return { ...state, history: [...state.history, { name: action.payload[0], body: action.payload[1] }] };
     case UPDATE_HISTORY:
-      for(let i = 0; i < state.history.length; i++) {
-        if(action.payload[0] === state.history[i].name) {
-          state.history.splice(i, 1, { name: action.payload[0], body: action.payload[1] });
+      
+      return { ...state, history: state.history.map((item, index) => {
+        if(index === state.currentIndex) {
+          return { ...item, body: action.payload };
         }
-      }
-      return { ...state };
+        return item;
+      }) };
+    case UPDATE_CURRENT_INDEX:
+      return { ...state, currentIndex: action.payload };
+    case SWITCH_BODY:
+      return { ...state, history: state.history.map((item, index) => {
+        if(index === action.index) {
+          return { ...item, body: action.payload };
+        }
+        return item;
+      }) };
     default:
       return state;
   }

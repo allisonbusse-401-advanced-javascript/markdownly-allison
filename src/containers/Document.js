@@ -6,11 +6,14 @@ import Preview from '../components/markdown/Preview';
 import Editor from '../components/markdown/Editor';
 import styles from './Document.css';
 
-import { sendMarkdownUpdate } from '../actions/documentActions';
-import { getCurrentBody } from '../selectors/documentSelectors';
+import { updateHistory } from '../actions/saveMarkdownActions';
 
-const Document = ({ currentBody, updateMarkdown }) => {
-  
+import { getCurrentIndex, getHistoryArray } from '../selectors/saveMarkdownSelectors';
+
+const Document = ({ historyArray, currentIndex, updateMarkdown }) => {
+  let currentBody = '';
+  if(historyArray[currentIndex]) currentBody = historyArray[currentIndex].body;
+
   return (
     <>
       <div className={styles.Document}>
@@ -22,17 +25,19 @@ const Document = ({ currentBody, updateMarkdown }) => {
 };
 
 Document.propTypes = {
-  currentBody: PropTypes.string,
+  currentIndex: PropTypes.number.isRequired,
+  historyArray: PropTypes.array.isRequired,
   updateMarkdown: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
-  currentBody: getCurrentBody(state)
+  currentIndex: getCurrentIndex(state),
+  historyArray: getHistoryArray(state),
 });
 
 const mapDispatchToProps = dispatch => ({
   updateMarkdown({ target }) {
-    dispatch(sendMarkdownUpdate(target.value));
+    dispatch(updateHistory(target.value));
   }
 });
 

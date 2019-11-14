@@ -3,21 +3,21 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import Tabs from '../components/markdown/Tabs';
-import { getCurrentTab, getCurrentBody } from '../selectors/documentSelectors';
-import { updateCurrentTab } from '../actions/tabActions';
 import { switchBody } from '../actions/documentActions';
-import { getHistoryArray } from '../selectors/saveMarkdownSelectors';
-import { updateHistory } from '../actions/saveMarkdownActions';
+import { getHistoryArray, getCurrentIndex } from '../selectors/saveMarkdownSelectors';
+import { updateHistory, updateCurrentIndex } from '../actions/saveMarkdownActions';
 
-const TabsNav = ({ historyArray, currentTab, currentBody, selectTab, handleSave }) => {
-  
+const TabsNav = ({ historyArray, selectTab, handleSave, currentIndex }) => {
+  let currentTab = '';
+  if(historyArray[currentIndex]) currentTab = historyArray[currentIndex].name;
+
   return (
     <>
       <Tabs 
         handleSave={handleSave}
         currentTab={currentTab} 
         historyArray={historyArray} 
-        currentBody={currentBody} 
+       
         selectTab={selectTab} />
     </>
   );
@@ -25,31 +25,25 @@ const TabsNav = ({ historyArray, currentTab, currentBody, selectTab, handleSave 
 
 TabsNav.propTypes = {
   historyArray: PropTypes.array,
-  currentBody: PropTypes.string.isRequired,
-  currentTab: PropTypes.string.isRequired,
+  currentIndex: PropTypes.number.isRequired,
   selectTab: PropTypes.func.isRequired,
   handleDelete: PropTypes.func,
   handleSave: PropTypes.func
 };
 
 const mapStateToProps = (state) => ({
-  currentTab: getCurrentTab(state),
-  currentBody: getCurrentBody(state),
-  historyArray: getHistoryArray(state)
+  historyArray: getHistoryArray(state),
+  currentIndex: getCurrentIndex(state),
 });
 
 const mapDispatchToProps = dispatch => ({
   handleSave(oldTab, body) {
     dispatch(updateHistory(oldTab, body));
   },
-  selectTab(newTab, historyArray) {
-    dispatch(updateCurrentTab(newTab));
-    for(let i = 0; i < historyArray.length; i++) {
-      if(historyArray[i].name === newTab) {
-        dispatch(switchBody(historyArray[i].body));
-        return;
-      }
-    }
+  selectTab(newTab, historyArray, index) {
+    dispatch(updateCurrentIndex(index));
+    if(historyArray[index].name === newTab) dispatch(switchBody(historyArray[index].body, index));
+
   },
   // handleDelete(name) {
   //   const { tabNames, historyArray } = deleteFunctionality(name);
