@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './Tabs.css';
 
-const Tabs = ({ currentTab, currentBody, historyArray, tabNames, selectTab, handleDelete, handleSave }) => {
-  const mappedTabs = tabNames.map((tabName, index)=> {
-    return <div key={index} onClick={() => selectTab(tabName, historyArray)}>
-      <p>{tabName}</p>
-      <sup><button onClick={() => handleDelete(tabName)}>X</button></sup> 
+const Tabs = ({ currentTab, currentBody, historyArray, selectTab, handleDelete, handleSave }) => {
+  const mappedTabs = historyArray.map(({ name }, index)=> {
+    return <div key={index} onClick={() => selectTab(name, historyArray)}>
+      <p>{name}</p>
+      <sup><button onClick={() => handleDelete(name)}>X</button></sup> 
     </div>;
   });
 
@@ -27,7 +27,6 @@ Tabs.propTypes = {
   selectTab: PropTypes.func,
   handleSave: PropTypes.func,
   historyArray: PropTypes.array,
-  tabNames: PropTypes.array.isRequired
 };
 
 export default Tabs;

@@ -3,14 +3,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import Tabs from '../components/markdown/Tabs';
-import { getTabNames } from '../selectors/tabSelectors';
 import { getCurrentTab, getCurrentBody } from '../selectors/documentSelectors';
 import { updateCurrentTab } from '../actions/tabActions';
 import { switchBody } from '../actions/documentActions';
 import { getHistoryArray } from '../selectors/saveMarkdownSelectors';
 import { updateHistory } from '../actions/saveMarkdownActions';
 
-const TabsNav = ({ historyArray, currentTab, currentBody, tabNames, selectTab, handleSave }) => {
+const TabsNav = ({ historyArray, currentTab, currentBody, selectTab, handleSave }) => {
   
   return (
     <>
@@ -19,14 +18,12 @@ const TabsNav = ({ historyArray, currentTab, currentBody, tabNames, selectTab, h
         currentTab={currentTab} 
         historyArray={historyArray} 
         currentBody={currentBody} 
-        tabNames={tabNames} 
         selectTab={selectTab} />
     </>
   );
 };
 
 TabsNav.propTypes = {
-  tabNames: PropTypes.array,
   historyArray: PropTypes.array,
   currentBody: PropTypes.string.isRequired,
   currentTab: PropTypes.string.isRequired,
@@ -36,7 +33,6 @@ TabsNav.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  tabNames: getTabNames(state),
   currentTab: getCurrentTab(state),
   currentBody: getCurrentBody(state),
   historyArray: getHistoryArray(state)

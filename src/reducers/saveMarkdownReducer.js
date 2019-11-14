@@ -6,7 +6,7 @@ const initialState = {
   history: []
 };
 
-function documentReducer(state = initialState, action) {
+function saveMarkdownReducer(state = initialState, action) {
   switch(action.type) {
     case TAB_NAME_CHANGE:
       return { ...state, tabName: action.payload };
@@ -24,4 +24,4 @@ function documentReducer(state = initialState, action) {
   }
 }
 
-export default documentReducer;
+export default saveMarkdownReducer;

@@ -17,7 +17,6 @@ function documentReducer(state = documentState, action) {
     case ADD_TAB:
       return { currentTab: action.payload, currentBody: '' };
     case SWITCH_BODY:
-
       return { ...state, currentBody: action.payload };
     default:
       return state;

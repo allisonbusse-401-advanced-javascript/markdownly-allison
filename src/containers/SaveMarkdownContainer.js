@@ -6,18 +6,17 @@ import SaveMarkdown from '../components/markdown/SaveMarkdown';
 
 import { addTab, sendTabName } from '../actions/saveMarkdownActions';
 import { updateCurrentTab } from '../actions/tabActions';
-import { getTabName } from '../selectors/saveMarkdownSelectors';
-import { getTabNames } from '../selectors/tabSelectors';
+import { getTabName, getHistoryArray } from '../selectors/saveMarkdownSelectors';
 
 import { newHistory } from '../actions/saveMarkdownActions';
 
-const SaveMarkdownContainer = ({ handleAdd, handleChange, tabName, tabNames }) => {
+const SaveMarkdownContainer = ({ handleAdd, handleChange, tabName, historyArray }) => {
   return (
     <SaveMarkdown 
       handleAdd={handleAdd} 
       handleChange={handleChange} 
       tabName={tabName} 
-      tabNames={tabNames}
+      historyArray={historyArray}
     />
   );
 };
@@ -26,25 +25,32 @@ SaveMarkdownContainer.propTypes = {
   handleAdd: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
   tabName: PropTypes.string.isRequired,
-  tabNames: PropTypes.array.isRequired
+  historyArray: PropTypes.array.isRequired
 };
 
 
 
 const mapStateToProps = (state) => ({
   tabName: getTabName(state),
-  tabNames: getTabNames(state)
+  historyArray: getHistoryArray(state)
 });
 
 const mapDispatchToProps = dispatch => ({
   handleChange({ target }) {
     dispatch(sendTabName(target.value));
   },
-  handleAdd(name, tabNames) {
-    if(tabNames.includes(name)) name = `${name}-copy`;
-    dispatch(newHistory(name, ''));
-    dispatch(addTab(name));
-    dispatch(updateCurrentTab(name));
+  handleAdd(name, historyArray) {
+    let newName = name;
+    if(historyArray.length > 0) {
+      for(let i = 0; i < historyArray.length; i++) {
+        if(name === historyArray[i].name) {
+          newName = `${name}-copy`; 
+        }
+      }
+    }
+    dispatch(newHistory(newName, ''));
+    dispatch(addTab(newName));
+    dispatch(updateCurrentTab(newName));
   }
 });
 
