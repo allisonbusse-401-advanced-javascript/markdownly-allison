@@ -20,7 +20,7 @@ describe('save markdown actions', ()=> {
     expect(newHistory('cat', 'dog')).toEqual({ type: 'NEW_HISTORY', payload: ['cat', 'dog'] });
   });
   it('updateHistory returns expected', ()=> {
-    expect(updateHistory('cat', 'dog')).toEqual({ type: 'UPDATE_HISTORY', payload: ['cat', 'dog'] });
+    expect(updateHistory('cat')).toEqual({ type: 'UPDATE_HISTORY', payload: 'cat' });
   });
   it('updateCurrentIndex returns expected', ()=> {
     expect(updateCurrentIndex(1)).toEqual({ type: 'UPDATE_CURRENT_INDEX', payload: 1 });
