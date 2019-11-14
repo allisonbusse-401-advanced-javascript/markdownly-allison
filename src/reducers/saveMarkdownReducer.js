@@ -14,7 +14,6 @@ function saveMarkdownReducer(state = initialState, action) {
     case NEW_HISTORY:
       return { ...state, history: [...state.history, { name: action.payload[0], body: action.payload[1] }] };
     case UPDATE_HISTORY:
-      
       return { ...state, history: state.history.map((item, index) => {
         if(index === state.currentIndex) {
           return { ...item, body: action.payload };
