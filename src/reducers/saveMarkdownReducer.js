@@ -1,7 +1,8 @@
 import { TAB_NAME_CHANGE } from '../actions/saveMarkdownActions';
 
 const initialState = {
-  tabName: ''
+  tabName: '',
+  history: 
 };
 
 function documentReducer(state = initialState, action) {

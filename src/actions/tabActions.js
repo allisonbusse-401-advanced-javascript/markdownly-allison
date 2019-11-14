@@ -1,7 +1,8 @@
-export const GO_TO_TAB = 'GO_TO_TAB';
+export const UPDATE_CURRENT_TAB = 'UPDATE_CURRENT_TAB';
 
-export const goToTab = markdown => ({
-  type: GO_TO_TAB,
-  payload: markdown
+export const updateCurrentTab = name => ({
+  type: UPDATE_CURRENT_TAB,
+  payload: name
 });
+
 

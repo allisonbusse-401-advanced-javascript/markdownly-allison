@@ -1,1 +1,3 @@
-export const getMarkdown = state => state.document.markdown;
+export const getCurrentTab = state => state.document.currentTab;
+export const getCurrentBody = state => state.document.currentBody;
+

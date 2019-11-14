@@ -1,8 +1,7 @@
 import { MARKDOWN_UPDATE } from '../actions/documentActions';
-import { GO_TO_TAB } from '../actions/tabActions';
+import { UPDATE_CURRENT_TAB } from '../actions/tabActions';
 
 const documentState = {
-  saveMarkdown: [],
   currentTab: '',
   currentBody: '',
 };
@@ -11,8 +10,8 @@ function documentReducer(state = documentState, action) {
   switch(action.type) {
     case MARKDOWN_UPDATE:
       return { ...state, currentBody: action.payload };
-    case GO_TO_TAB:
-      return {};
+    case UPDATE_CURRENT_TAB:
+      return { ...state, currentTab: action.payload };
     default:
       return state;
   }

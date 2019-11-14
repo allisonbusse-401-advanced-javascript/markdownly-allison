@@ -7,9 +7,12 @@ import Editor from '../components/markdown/Editor';
 import styles from './Document.css';
 
 import { sendMarkdownUpdate } from '../actions/documentActions';
-import { getMarkdown } from '../selectors/documentSelectors';
+import { getCurrentTab } from '../selectors/documentSelectors';
 
-const Document = ({ markdown, updateMarkdown }) => {
+const Document = ({ historyArray, currentTab, updateMarkdown }) => {
+  //if history has current tab return body
+  //else set current tab body to '' and return
+  //update
   return (
     <>
       <div className={styles.Document}>
@@ -21,12 +24,14 @@ const Document = ({ markdown, updateMarkdown }) => {
 };
 
 Document.propTypes = {
-  markdown: PropTypes.string.isRequired,
+  currentTab: PropTypes.string.isRequired,
+  historyArray: PropTypes.array,
   updateMarkdown: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
-  markdown: getMarkdown(state)
+  currentTab: getCurrentTab(state),
+  historyArray: getHistoryArray(state),
 });
 
 const mapDispatchToProps = dispatch => ({

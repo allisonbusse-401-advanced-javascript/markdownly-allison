@@ -1,11 +1,14 @@
-import { GO_TO_TAB } from '../actions/tabActions';
+import { ADD_TAB } from '../actions/saveMarkdownActions';
 
-const initialState = ['test'];
+const initialState = {
+  tabNames: [],
+};
 
 function tabReducer(state = initialState, action) {
   switch(action.type) {
-    case GO_TO_TAB:
+    case ADD_TAB:
       return [...state, action.payload];
+    
     default:
       return state;
   }

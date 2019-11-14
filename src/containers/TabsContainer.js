@@ -3,12 +3,53 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import Tabs from '../components/markdown/Tabs';
+import { getTabNames } from '../selectors/tabSelectors';
+import { getCurrentTab, getCurrentBody } from '../selectors/documentSelectors';
+import { updateCurrentTab } from '../actions/tabActions';
 
-const TabsContainer = ({ markdown, updateMarkdown }) => {
-  
+const TabsNav = ({ currentTab, currentBody, tabNames, selectTab }) => {
+
   return (
     <>
-      <Tabs arrayTabs={['thing', 'thing']} />
+      <Tabs currentTab={currentTab} currentBody={currentBody} tabNames={tabNames} selectTab={selectTab} />
     </>
   );
-}
+};
+
+TabsNav.propTypes = {
+  tabNames: PropTypes.array,
+  currentBody: PropTypes.string.isRequired,
+  currentTab: PropTypes.string.isRequired,
+  selectTab: PropTypes.func.isRequired,
+  handleDelete: PropTypes.func,
+};
+
+const mapStateToProps = (state) => ({
+  tabNames: getTabNames(state),
+  currentTab: getCurrentTab(state),
+  currentBody: getCurrentBody(state)
+});
+
+const mapDispatchToProps = dispatch => ({
+  selectTab(oldTab, body, newTab) {
+    dispatch(updateHistory(oldTab, body));
+    dispatch(updateCurrentTab(newTab));
+  },
+  // handleDelete(name) {
+  //   const { tabNames, historyArray } = deleteFunctionality(name);
+  //   dispatch(updateTabNames(tabNames));
+  //   dispatch(updateHistory(historyArray));
+  // }
+});
+
+// function deleteFunctionality(name, state) {
+//   const tabNames = getTabNames(state);
+  
+// }
+
+const TabsNavContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TabsNav);
+
+export default TabsNavContainer;
