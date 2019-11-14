@@ -1,10 +1,12 @@
 import { TAB_NAME_CHANGE, UPDATE_HISTORY, NEW_HISTORY, UPDATE_CURRENT_INDEX } from '../actions/saveMarkdownActions';
 import { SWITCH_BODY } from '../actions/documentActions';
+import { LANDING_PAGE } from '../actions/landingPageActions';
 
 const initialState = {
   tabName: '',
   history: [],
   currentIndex: 0,
+  landingPage: true
 };
 
 function saveMarkdownReducer(state = initialState, action) {
@@ -29,6 +31,8 @@ function saveMarkdownReducer(state = initialState, action) {
         }
         return item;
       }) };
+    case LANDING_PAGE:
+      return { ...state, landingPage: false };
     default:
       return state;
   }
