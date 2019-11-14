@@ -6,12 +6,14 @@ import Tabs from '../components/markdown/Tabs';
 import { getTabNames } from '../selectors/tabSelectors';
 import { getCurrentTab, getCurrentBody } from '../selectors/documentSelectors';
 import { updateCurrentTab } from '../actions/tabActions';
+import { getHistoryArray } from '../selectors/saveMarkdownSelectors';
+import { newHistory, updateHistory } from '../actions/saveMarkdownActions';
 
-const TabsNav = ({ currentTab, currentBody, tabNames, selectTab }) => {
+const TabsNav = ({ historyArray, currentTab, currentBody, tabNames, selectTab }) => {
 
   return (
     <>
-      <Tabs currentTab={currentTab} currentBody={currentBody} tabNames={tabNames} selectTab={selectTab} />
+      <Tabs currentTab={currentTab} historyArray={historyArray} currentBody={currentBody} tabNames={tabNames} selectTab={selectTab} />
     </>
   );
 };
@@ -27,12 +29,22 @@ TabsNav.propTypes = {
 const mapStateToProps = (state) => ({
   tabNames: getTabNames(state),
   currentTab: getCurrentTab(state),
-  currentBody: getCurrentBody(state)
+  currentBody: getCurrentBody(state),
+  historyArray: getHistoryArray(state)
 });
 
 const mapDispatchToProps = dispatch => ({
-  selectTab(oldTab, body, newTab) {
-    dispatch(updateHistory(oldTab, body));
+  selectTab(oldTab, body, newTab, historyArray) {
+    for(let i = 0; i < historyArray.length; i++) {
+      if(historyArray[i].name === oldTab) {
+        console.log('update');
+        dispatch(updateHistory(oldTab, body));
+        dispatch(updateCurrentTab(newTab));
+        return;
+      }
+    }
+    console.log('new history');
+    dispatch(newHistory(oldTab, body));
     dispatch(updateCurrentTab(newTab));
   },
   // handleDelete(name) {

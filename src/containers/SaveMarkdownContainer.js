@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import SaveMarkdown from '../components/markdown/SaveMarkdown';
 
 import { addTab, sendTabName } from '../actions/saveMarkdownActions';
+import { updateCurrentTab } from '../actions/tabActions';
 import { getTabName } from '../selectors/saveMarkdownSelectors';
 
 const SaveMarkdownContainer = ({ handleAdd, handleChange, tabName }) => {
@@ -17,7 +18,7 @@ SaveMarkdownContainer.propTypes = {
   handleAdd: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
   tabName: PropTypes.string.isRequired
-}
+};
 
 
 const mapStateToProps = (state) => ({
@@ -30,14 +31,15 @@ const mapDispatchToProps = dispatch => ({
   },
   handleAdd(name) {
     dispatch(addTab(name));
+    dispatch(updateCurrentTab(name));
   }
 });
 
-const DocumentContainer = connect(
+const SaveMarkdownContainerContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(Document);
+)(SaveMarkdownContainer);
 
-export default DocumentContainer;
+export default SaveMarkdownContainerContainer;
 
 

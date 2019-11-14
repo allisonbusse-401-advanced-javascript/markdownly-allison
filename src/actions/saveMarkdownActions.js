@@ -12,3 +12,18 @@ export const addTab = name => ({
   payload: name
 });
 
+export const NEW_HISTORY = 'NEW_HISTORY';
+
+export const newHistory = (name, body) => ({
+  type: NEW_HISTORY,
+  payload: [name, body]
+});
+
+export const UPDATE_HISTORY = 'UPDATE_HISTORY';
+
+export const updateHistory = (name, body) => ({
+  type: UPDATE_HISTORY,
+  payload: [name, body]
+});
+
+

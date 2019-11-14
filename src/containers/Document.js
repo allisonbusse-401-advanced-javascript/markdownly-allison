@@ -7,31 +7,27 @@ import Editor from '../components/markdown/Editor';
 import styles from './Document.css';
 
 import { sendMarkdownUpdate } from '../actions/documentActions';
-import { getCurrentTab } from '../selectors/documentSelectors';
+import { getCurrentBody } from '../selectors/documentSelectors';
 
-const Document = ({ historyArray, currentTab, updateMarkdown }) => {
-  //if history has current tab return body
-  //else set current tab body to '' and return
-  //update
+const Document = ({ currentBody, updateMarkdown }) => {
+  
   return (
     <>
       <div className={styles.Document}>
-        <Editor markdown={markdown} updateMarkdown={updateMarkdown} />
-        <Preview markdown={markdown} />
+        <Editor markdown={currentBody} updateMarkdown={updateMarkdown} />
+        <Preview markdown={currentBody} />
       </div>
     </>
   );
 };
 
 Document.propTypes = {
-  currentTab: PropTypes.string.isRequired,
-  historyArray: PropTypes.array,
+  currentBody: PropTypes.string,
   updateMarkdown: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
-  currentTab: getCurrentTab(state),
-  historyArray: getHistoryArray(state),
+  currentBody: getCurrentBody(state)
 });
 
 const mapDispatchToProps = dispatch => ({
