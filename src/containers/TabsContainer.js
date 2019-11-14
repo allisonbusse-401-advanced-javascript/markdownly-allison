@@ -5,22 +5,23 @@ import { connect } from 'react-redux';
 import Tabs from '../components/markdown/Tabs';
 import { switchBody } from '../actions/documentActions';
 import { getHistoryArray, getCurrentIndex } from '../selectors/saveMarkdownSelectors';
-import { updateHistory, updateCurrentIndex } from '../actions/saveMarkdownActions';
+import { updateHistory, updateCurrentIndex, deleteFile } from '../actions/saveMarkdownActions';
 
-const TabsNav = ({ historyArray, selectTab, handleSave, currentIndex }) => {
+const TabsNav = ({ handleDelete, historyArray, selectTab, handleSave, currentIndex }) => {
   let currentTab = '';
   if(historyArray[currentIndex]) currentTab = historyArray[currentIndex].name;
-
+  
   return (
     <>
       <Tabs 
         handleSave={handleSave}
         currentTab={currentTab} 
         historyArray={historyArray} 
-       
+        handleDelete={handleDelete}
         selectTab={selectTab} />
     </>
   );
+  
 };
 
 TabsNav.propTypes = {
@@ -42,14 +43,16 @@ const mapDispatchToProps = dispatch => ({
   },
   selectTab(newTab, historyArray, index) {
     dispatch(updateCurrentIndex(index));
+    if(historyArray.length === 0) return;
     if(historyArray[index].name === newTab) dispatch(switchBody(historyArray[index].body, index));
 
   },
-  // handleDelete(name) {
-  //   const { tabNames, historyArray } = deleteFunctionality(name);
-  //   dispatch(updateTabNames(tabNames));
-  //   dispatch(updateHistory(historyArray));
-  // }
+  handleDelete(index) {
+    dispatch(updateCurrentIndex(0));
+    dispatch(deleteFile(index));
+    
+  
+  }
 });
 
 // function deleteFunctionality(name, state) {

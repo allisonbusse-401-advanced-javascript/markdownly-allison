@@ -25,3 +25,10 @@ export const updateCurrentIndex = index => ({
   type: UPDATE_CURRENT_INDEX,
   payload: index
 });
+
+export const DELETE = 'DELETE';
+
+export const deleteFile = index => ({
+  type: DELETE,
+  payload: index
+});
