@@ -1,16 +1,18 @@
-import { getTabName, getHistoryArray } from './saveMarkdownSelectors';
+import { getTabName, getHistoryArray, getCurrentIndex } from './saveMarkdownSelectors';
 
 describe('save markdown selectors', ()=> {
   const state = {
-    saveMarkdown: {
-      tabName: 'dog',
-      history: 'cat'
-    }
+    tabName: 'dog',
+    history: 'cat',
+    currentIndex: 1
   };
   it('getCurrentTab gets the right state', ()=> {
     expect(getTabName(state)).toEqual('dog');
   });
-  it('getCurrentBody gets the right state', ()=> {
+  it('gethistoryArray gets the right state', ()=> {
     expect(getHistoryArray(state)).toEqual('cat');
+  });
+  it('getCurrentIndex gets the right state', ()=> {
+    expect(getCurrentIndex(state)).toEqual(1);
   });
 });
