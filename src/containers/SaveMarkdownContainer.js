@@ -55,6 +55,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(updateCurrentIndex(historyArray.length));
     dispatch(switchBody('', historyArray.length));
     dispatch(newHistory(newName, ''));
+    localStorage.setItem('history', JSON.stringify(historyArray));
   },
 });
 

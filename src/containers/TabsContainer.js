@@ -48,13 +48,12 @@ const mapDispatchToProps = dispatch => ({
     dispatch(updateCurrentIndex(index));
     if(historyArray.length === 0) return;
     if(historyArray[index].name === newTab) dispatch(switchBody(historyArray[index].body, index));
-
+    localStorage.setItem('history', JSON.stringify(historyArray));    
   },
-  handleDelete(index) {
+  handleDelete(index, historyArray) {
     dispatch(updateCurrentIndex(0));
     dispatch(deleteFile(index));
-    
-  
+    localStorage.setItem('history', JSON.stringify(historyArray));    
   }
 });
 

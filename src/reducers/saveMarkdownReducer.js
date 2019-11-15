@@ -1,10 +1,11 @@
-import { TAB_NAME_CHANGE, DELETE, UPDATE_HISTORY, NEW_HISTORY, TITLE_SEARCH_CHANGE, UPDATE_CURRENT_INDEX } from '../actions/saveMarkdownActions';
+
+import { TAB_NAME_CHANGE, DELETE, UPDATE_HISTORY, NEW_HISTORY, TITLE_SEARCH_CHANGE, UPDATE_CURRENT_INDEX, manageStorage } from '../actions/saveMarkdownActions';
 import { SWITCH_BODY } from '../actions/documentActions';
 import { LANDING_PAGE } from '../actions/landingPageActions';
 
 const initialState = {
   tabName: '',
-  history: [],
+  history: manageStorage(),
   currentIndex: 0,
   landingPage: true,
   searchTitle: ''

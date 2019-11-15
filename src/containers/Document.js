@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -14,10 +14,13 @@ const Document = ({ historyArray, currentIndex, updateMarkdown }) => {
   let currentBody = '';
   if(historyArray[currentIndex]) currentBody = historyArray[currentIndex].body;
 
+  useEffect(() => {
+    localStorage.setItem('history', JSON.stringify(historyArray));
+  });
   return (
     <>
       <div className={styles.Document}>
-        <Editor markdown={currentBody} updateMarkdown={updateMarkdown} />
+        <Editor markdown={currentBody} updateMarkdown={updateMarkdown}/>
         <Preview markdown={currentBody} />
       </div>
     </>
@@ -38,6 +41,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = dispatch => ({
   updateMarkdown({ target }) {
     dispatch(updateHistory(target.value));
+    
   }
 });
 

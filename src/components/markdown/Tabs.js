@@ -7,10 +7,9 @@ const Tabs = ({ historyArray, selectTab, handleDelete }) => {
   const mappedTabs = historyArray.map(({ name }, index) => {
     return <div key={index} onClick={() => selectTab(name, historyArray, index)}>
       <p>{name}</p>
-      <sup><button onClick={() => handleDelete(index)}>X</button></sup>
+      <sup><button onClick={() => handleDelete(index, historyArray)}>X</button></sup> 
     </div>;
   });
-
 
 
   return (

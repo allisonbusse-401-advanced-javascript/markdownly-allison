@@ -39,3 +39,10 @@ export const deleteFile = index => ({
   type: DELETE,
   payload: index
 });
+
+export const manageStorage = () => {
+  if(!JSON.parse(localStorage.getItem('history'))) {
+    return [];
+  }
+  return JSON.parse(localStorage.getItem('history'));
+};
