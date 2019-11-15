@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 
 import Tabs from '../components/markdown/Tabs';
 import { switchBody } from '../actions/documentActions';
-import { getHistoryArray, getCurrentIndex } from '../selectors/saveMarkdownSelectors';
+import { getCurrentIndex, getTitleSearch, getFilteredHistory } from '../selectors/saveMarkdownSelectors';
 import { updateHistory, updateCurrentIndex, deleteFile } from '../actions/saveMarkdownActions';
 
-const TabsNav = ({ handleDelete, historyArray, selectTab, handleSave, currentIndex }) => {
+const TabsNav = ({ handleDelete, historyArray, selectTab, searchTitle, handleSave, currentIndex }) => {
   let currentTab = '';
   if(historyArray[currentIndex]) currentTab = historyArray[currentIndex].name;
   
@@ -18,6 +18,7 @@ const TabsNav = ({ handleDelete, historyArray, selectTab, handleSave, currentInd
         currentTab={currentTab} 
         historyArray={historyArray} 
         handleDelete={handleDelete}
+        searchTitle={searchTitle}
         selectTab={selectTab} />
     </>
   );
@@ -28,13 +29,15 @@ TabsNav.propTypes = {
   historyArray: PropTypes.array,
   currentIndex: PropTypes.number.isRequired,
   selectTab: PropTypes.func.isRequired,
+  searchTitle: PropTypes.string,
   handleDelete: PropTypes.func,
   handleSave: PropTypes.func
 };
 
 const mapStateToProps = (state) => ({
-  historyArray: getHistoryArray(state),
+  historyArray: getFilteredHistory(state),
   currentIndex: getCurrentIndex(state),
+  searchTitle: getTitleSearch(state)
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -54,11 +57,6 @@ const mapDispatchToProps = dispatch => ({
   
   }
 });
-
-// function deleteFunctionality(name, state) {
-//   const tabNames = getTabNames(state);
-  
-// }
 
 const TabsNavContainer = connect(
   mapStateToProps,
