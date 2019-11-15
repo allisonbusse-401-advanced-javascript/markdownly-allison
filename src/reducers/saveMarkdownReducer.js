@@ -6,7 +6,7 @@ const initialState = {
   tabName: '',
   history: [],
   currentIndex: 0,
-  landingPage: true
+  landingPage: true,
   searchTitle: ''
 };
 
