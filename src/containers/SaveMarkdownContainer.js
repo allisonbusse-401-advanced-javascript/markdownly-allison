@@ -4,18 +4,19 @@ import { connect } from 'react-redux';
 
 import SaveMarkdown from '../components/markdown/SaveMarkdown';
 
-import { sendTabName, updateCurrentIndex } from '../actions/saveMarkdownActions';
-import { getTabName, getHistoryArray } from '../selectors/saveMarkdownSelectors';
+import { sendTabName, sendTitleSearch, updateCurrentIndex } from '../actions/saveMarkdownActions';
+import { getTabName, getHistoryArray, getTitleSearch } from '../selectors/saveMarkdownSelectors';
 
 import { newHistory } from '../actions/saveMarkdownActions';
 import { switchBody } from '../actions/documentActions';
 
-const SaveMarkdownContainer = ({ handleAdd, handleChange, tabName, historyArray }) => {
+const SaveMarkdownContainer = ({ handleAdd, handleChange, tabName, titleSearch, historyArray }) => {
   return (
     <SaveMarkdown 
       handleAdd={handleAdd} 
       handleChange={handleChange} 
       tabName={tabName} 
+      titleSearch={titleSearch}
       historyArray={historyArray}
     />
   );
@@ -25,6 +26,7 @@ SaveMarkdownContainer.propTypes = {
   handleAdd: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
   tabName: PropTypes.string.isRequired,
+  titleSearch: PropTypes.string,
   historyArray: PropTypes.array.isRequired
 };
 
@@ -32,12 +34,14 @@ SaveMarkdownContainer.propTypes = {
 
 const mapStateToProps = (state) => ({
   tabName: getTabName(state),
-  historyArray: getHistoryArray(state)
+  historyArray: getHistoryArray(state),
+  titleSearch: getTitleSearch(state)
 });
 
 const mapDispatchToProps = dispatch => ({
   handleChange({ target }) {
-    dispatch(sendTabName(target.value));
+    if(target.name === 'add') dispatch(sendTabName(target.value));
+    else dispatch(sendTitleSearch(target.value));
   },
   handleAdd(name, historyArray) {
     let newName = name;
@@ -52,7 +56,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(switchBody('', historyArray.length));
     dispatch(newHistory(newName, ''));
     localStorage.setItem('history', JSON.stringify(historyArray));
-  }
+  },
 });
 
 const SaveMarkdownContainerContainer = connect(

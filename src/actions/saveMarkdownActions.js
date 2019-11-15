@@ -5,6 +5,13 @@ export const sendTabName = tabName => ({
   payload: tabName
 });
 
+export const TITLE_SEARCH_CHANGE = 'TITLE_SEARCH_CHANGE';
+
+export const sendTitleSearch = titleSearch => ({
+  type: TITLE_SEARCH_CHANGE,
+  payload: titleSearch
+});
+
 export const NEW_HISTORY = 'NEW_HISTORY';
 
 export const newHistory = (name, body) => ({

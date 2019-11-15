@@ -4,24 +4,26 @@ import styles from './Tabs.css';
 
 
 const Tabs = ({ historyArray, selectTab, handleDelete }) => {
-  const mappedTabs = historyArray.map(({ name }, index)=> {
+  const mappedTabs = historyArray.map(({ name }, index) => {
     return <div key={index} onClick={() => selectTab(name, historyArray, index)}>
       <p>{name}</p>
       <sup><button onClick={() => handleDelete(index, historyArray)}>X</button></sup> 
     </div>;
   });
 
+
   return (
     <ul className={styles.Tabs}>
       {mappedTabs}
     </ul>
-    
+
   );
 };
 
 Tabs.propTypes = {
   handleDelete: PropTypes.func,
   selectTab: PropTypes.func,
+  searchTitle: PropTypes.string,
   handleSave: PropTypes.func,
   historyArray: PropTypes.array,
 };
