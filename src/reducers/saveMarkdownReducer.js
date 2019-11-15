@@ -1,4 +1,4 @@
-import { TAB_NAME_CHANGE, UPDATE_HISTORY, NEW_HISTORY, UPDATE_CURRENT_INDEX } from '../actions/saveMarkdownActions';
+import { TAB_NAME_CHANGE, DELETE, UPDATE_HISTORY, NEW_HISTORY, TITLE_SEARCH_CHANGE, UPDATE_CURRENT_INDEX } from '../actions/saveMarkdownActions';
 import { SWITCH_BODY } from '../actions/documentActions';
 import { LANDING_PAGE } from '../actions/landingPageActions';
 
@@ -7,6 +7,7 @@ const initialState = {
   history: [],
   currentIndex: 0,
   landingPage: true
+  searchTitle: ''
 };
 
 function saveMarkdownReducer(state = initialState, action) {
@@ -31,8 +32,15 @@ function saveMarkdownReducer(state = initialState, action) {
         }
         return item;
       }) };
+
     case LANDING_PAGE:
       return { ...state, landingPage: false };
+    case DELETE:
+      if(state.history.length === 1) return { ...state, history: [] };
+      state.history.splice(action.payload, 1);
+      return state;
+    case TITLE_SEARCH_CHANGE:
+      return { ...state, searchTitle: action.payload };
     default:
       return state;
   }

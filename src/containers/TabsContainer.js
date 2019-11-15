@@ -4,36 +4,40 @@ import { connect } from 'react-redux';
 
 import Tabs from '../components/markdown/Tabs';
 import { switchBody } from '../actions/documentActions';
-import { getHistoryArray, getCurrentIndex } from '../selectors/saveMarkdownSelectors';
-import { updateHistory, updateCurrentIndex } from '../actions/saveMarkdownActions';
+import { getCurrentIndex, getTitleSearch, getFilteredHistory } from '../selectors/saveMarkdownSelectors';
+import { updateHistory, updateCurrentIndex, deleteFile } from '../actions/saveMarkdownActions';
 
-const TabsNav = ({ historyArray, selectTab, handleSave, currentIndex }) => {
+const TabsNav = ({ handleDelete, historyArray, selectTab, searchTitle, handleSave, currentIndex }) => {
   let currentTab = '';
   if(historyArray[currentIndex]) currentTab = historyArray[currentIndex].name;
-
+  
   return (
     <>
       <Tabs 
         handleSave={handleSave}
         currentTab={currentTab} 
         historyArray={historyArray} 
-       
+        handleDelete={handleDelete}
+        searchTitle={searchTitle}
         selectTab={selectTab} />
     </>
   );
+  
 };
 
 TabsNav.propTypes = {
   historyArray: PropTypes.array,
   currentIndex: PropTypes.number.isRequired,
   selectTab: PropTypes.func.isRequired,
+  searchTitle: PropTypes.string,
   handleDelete: PropTypes.func,
   handleSave: PropTypes.func
 };
 
 const mapStateToProps = (state) => ({
-  historyArray: getHistoryArray(state),
+  historyArray: getFilteredHistory(state),
   currentIndex: getCurrentIndex(state),
+  searchTitle: getTitleSearch(state)
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -42,20 +46,17 @@ const mapDispatchToProps = dispatch => ({
   },
   selectTab(newTab, historyArray, index) {
     dispatch(updateCurrentIndex(index));
+    if(historyArray.length === 0) return;
     if(historyArray[index].name === newTab) dispatch(switchBody(historyArray[index].body, index));
 
   },
-  // handleDelete(name) {
-  //   const { tabNames, historyArray } = deleteFunctionality(name);
-  //   dispatch(updateTabNames(tabNames));
-  //   dispatch(updateHistory(historyArray));
-  // }
-});
-
-// function deleteFunctionality(name, state) {
-//   const tabNames = getTabNames(state);
+  handleDelete(index) {
+    dispatch(updateCurrentIndex(0));
+    dispatch(deleteFile(index));
+    
   
-// }
+  }
+});
 
 const TabsNavContainer = connect(
   mapStateToProps,

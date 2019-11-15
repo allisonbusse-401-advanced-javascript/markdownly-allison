@@ -5,6 +5,13 @@ export const sendTabName = tabName => ({
   payload: tabName
 });
 
+export const TITLE_SEARCH_CHANGE = 'TITLE_SEARCH_CHANGE';
+
+export const sendTitleSearch = titleSearch => ({
+  type: TITLE_SEARCH_CHANGE,
+  payload: titleSearch
+});
+
 export const NEW_HISTORY = 'NEW_HISTORY';
 
 export const newHistory = (name, body) => ({
@@ -23,5 +30,12 @@ export const UPDATE_CURRENT_INDEX = 'UPDATE_CURRENT_INDEX';
 
 export const updateCurrentIndex = index => ({
   type: UPDATE_CURRENT_INDEX,
+  payload: index
+});
+
+export const DELETE = 'DELETE';
+
+export const deleteFile = index => ({
+  type: DELETE,
   payload: index
 });
