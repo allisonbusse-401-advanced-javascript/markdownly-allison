@@ -1,4 +1,4 @@
-import React, { useEffect }  from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './Tabs.css';
 
@@ -7,13 +7,9 @@ const Tabs = ({ historyArray, selectTab, handleDelete }) => {
   const mappedTabs = historyArray.map(({ name }, index)=> {
     return <div key={index} onClick={() => selectTab(name, historyArray, index)}>
       <p>{name}</p>
-      <sup><button onClick={() => handleDelete(index)}>X</button></sup> 
+      <sup><button onClick={() => handleDelete(index, historyArray)}>X</button></sup> 
     </div>;
   });
-
-  useEffect(() => {
-    
-  }, [historyArray]);
 
   return (
     <ul className={styles.Tabs}>
