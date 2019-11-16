@@ -1,17 +1,16 @@
 import React from 'react';
-import Document from '../containers/Document';
-import styles from './App.css';
-import TabsNavContainer from '../containers/TabsContainer';
-import SaveMarkdownContainerContainer from '../containers/SaveMarkdownContainer';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import LandingPage from '../pages/LandingPage';
+import Home from '../pages/Home';
 
 export default function App() {
 
   return (
-    <>
-      <h1 className={styles.App}>Markdown Editor</h1>
-      <SaveMarkdownContainerContainer />
-      <TabsNavContainer />
-      <Document />
-    </>
+    <Router>
+      <Switch>
+        <Route exact path="/" component={LandingPage} />
+        <Route path="/editor" component={Home} />
+      </Switch>
+    </Router>
   );
 }
